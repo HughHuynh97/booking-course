@@ -8,8 +8,9 @@ import (
 
 func RenderTemplate(w http.ResponseWriter, fileName string) {
 	filePath := "./templates/" + fileName
-	parseTemplate, err := template.ParseFiles(filePath)
+	commonBaseTemplate := "./templates/base.layout.gohtml"
 
+	parseTemplate, err := template.ParseFiles(filePath, commonBaseTemplate)
 	if err != nil {
 		http.Error(w, "Error parsing template", http.StatusInternalServerError)
 		fmt.Printf("Error parsing template: %v\n", err)
