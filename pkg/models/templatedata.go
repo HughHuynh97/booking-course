@@ -1,4 +1,4 @@
-package model
+package models
 
 // TemplateDate hold data send from handler to templates
 type TemplateData struct {

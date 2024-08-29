@@ -3,7 +3,7 @@ package render
 import (
 	"bytes"
 	"github.com/HughHuynh97/booking-course/pkg/config"
-	"github.com/HughHuynh97/booking-course/pkg/model"
+	"github.com/HughHuynh97/booking-course/pkg/models"
 	"html/template"
 	"log"
 	"net/http"
@@ -19,7 +19,11 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
-func RenderTemplate(w http.ResponseWriter, tmpl string, td *model.TemplateData) {
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+	return td
+}
+
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	var tc map[string]*template.Template
 	if app.UseCache {
 		// create a template cache from the app config
@@ -35,6 +39,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *model.TemplateData) 
 	}
 
 	buf := new(bytes.Buffer)
+	td = AddDefaultData(td)
 	_ = t.Execute(buf, td)
 
 	// render the template
