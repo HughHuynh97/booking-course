@@ -3,15 +3,18 @@ package main
 import (
 	"github.com/HughHuynh97/booking-course/pkg/config"
 	"github.com/HughHuynh97/booking-course/pkg/handlers"
-	"github.com/bmizerany/pat"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 	"net/http"
 )
 
 func routes(config *config.AppConfig) http.Handler {
-	mux := pat.New()
+	mux := chi.NewRouter()
 
-	mux.Get("/", http.HandlerFunc(handlers.Repo.Home))
-	mux.Get("/about", http.HandlerFunc(handlers.Repo.About))
+	mux.Use(middleware.Recoverer)
+	mux.Use(NoSurf)
 
+	mux.Get("/", handlers.Repo.Home)
+	mux.Get("/about", handlers.Repo.About)
 	return mux
 }

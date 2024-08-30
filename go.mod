@@ -2,4 +2,7 @@ module github.com/HughHuynh97/booking-course
 
 go 1.15
 
-require github.com/bmizerany/pat v0.0.0-20210406213842-e4b6760bdd6f // indirect
+require (
+	github.com/go-chi/chi v4.1.2+incompatible
+	github.com/justinas/nosurf v1.1.1 // indirect
+)
